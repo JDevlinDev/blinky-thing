@@ -9,18 +9,18 @@
 *************************************************/
 static const char *TAG = "BLINKY";
 static const gpio_num_t BLINK_PIN = 23;
-static const uint16_t BLINK_PERIOD = 800;
+static const uint16_t BLINK_PERIOD = 800; // blink period in milliseconds
 
 /***********************************************
 * Static Vars
 *************************************************/
-static uint8_t s_led_state = 0;
+static uint8_t s_led_state = 0;  // to toggle the LED state on (1 for HIGH) or off (0 for LOW)
 
 /***********************************************
 * Function Declarations
 *************************************************/
-static void blink_led(void);
-static void configure_led(void);
+static void blink_led(void);  // toggles the led on or off
+static void configure_led(void); // initial config
 
 /***********************************************
 * Application Entrypoint
@@ -42,12 +42,13 @@ void app_main(void)
 *************************************************/
 static void blink_led(void)
 {
+   // sets the GPIO level to s_led_state
    gpio_set_level(BLINK_PIN, s_led_state);
 }
 
 static void configure_led(void)
 {
-   ESP_LOGI(TAG, "Example configured to blink GPIO LED!");
+   ESP_LOGI(TAG, "Example configured to blink GPIO %d!", BLINK_PIN);
    gpio_reset_pin(BLINK_PIN);
    gpio_set_direction(BLINK_PIN, GPIO_MODE_OUTPUT);
 }
