@@ -18,8 +18,8 @@ It is a foundational project designed to refresh and sharpen expertise in severa
 * **PN2222 NPN Transistor x1** — Q1
 * **Red LEDs x2** — D1, D2
 * **Resistors:**
-* **220Ω x2** — R1, R2
-* **1kΩ x1** — R3
+   * **220Ω x2** — R1, R2
+   * **1kΩ x1** — R3
 
 
 * **Power:** 5V/3V Breadboard module + 25W DC Adapter ⚡
