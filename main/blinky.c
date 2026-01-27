@@ -15,19 +15,25 @@ static const uint16_t BLINK_PERIOD = 800; // blink period in milliseconds
 * Static Vars
 *************************************************/
 static uint8_t s_led_state = 0;  // to toggle the LED state on (1 for HIGH) or off (0 for LOW)
+static esp_err_t s_esp_err;
 
 /***********************************************
 * Function Declarations
 *************************************************/
 static void blink_led(void);  // toggles the led on or off
-static void configure_led(void); // initial config
+static esp_err_t configure_led(void); // initial config
 
 /***********************************************
 * Application Entrypoint
 *************************************************/
 void app_main(void)
 {
-   configure_led();
+   // Configure the GPIO and exit the program if there are errors
+   s_esp_err = configure_led();
+   if (s_esp_err != ESP_OK) {
+      ESP_LOGE(TAG, "Failed to configure GPIO %d. Exiting...\n", BLINK_PIN);
+      return s_esp_err;
+   }
 
    while (1) {
       ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
@@ -42,13 +48,26 @@ void app_main(void)
 *************************************************/
 static void blink_led(void)
 {
-   // sets the GPIO level to s_led_state
+   // sets the GPIO level to s_led_state%!"
    gpio_set_level(BLINK_PIN, s_led_state);
 }
 
-static void configure_led(void)
+static esp_err_t configure_led(void)
 {
+   // Reset GPIO pin 
+   s_esp_err = gpio_reset_pin(BLINK_PIN);
+   if (s_esp_err != ESP_OK) {
+      ESP_LOGE(TAG, "\t-Could not reset GPIO %d. Config failed...\n");
+      return s_esp_err;
+   }
+
+   // Set GPIO MODE as OUTPUT
+   s_esp_err = gpio_set_direction(BLINK_PIN, GPIO_MODE_OUTPUT);
+   if (s_esp_err != ESP_OK) {
+      ESP_LOGE(TAG, "\t-Could not set GPIO %d direction. Config failed...\n");
+      return s_esp_err;
+   }
+
+   // Print success message.
    ESP_LOGI(TAG, "Example configured to blink GPIO %d!", BLINK_PIN);
-   gpio_reset_pin(BLINK_PIN);
-   gpio_set_direction(BLINK_PIN, GPIO_MODE_OUTPUT);
 }
