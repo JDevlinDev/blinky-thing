@@ -30,17 +30,16 @@ void app_main(void)
 {
    // Configure the GPIO and exit the program if there are errors
    s_esp_err = configure_led();
-   if (s_esp_err != ESP_OK) {
-      ESP_LOGE(TAG, "Failed to configure GPIO %d. Exiting...\n", BLINK_PIN);
-      return s_esp_err;
+   if (s_esp_err == ESP_OK) {
+      while (1) {
+         ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
+         blink_led();
+           s_led_state = !s_led_state;
+           vTaskDelay(BLINK_PERIOD / portTICK_PERIOD_MS);
+       }
    }
-
-   while (1) {
-      ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
-      blink_led();
-        s_led_state = !s_led_state;
-        vTaskDelay(BLINK_PERIOD / portTICK_PERIOD_MS);
-    }
+   
+   ESP_LOGE(TAG, "Failed to configure GPIO %d. Exiting...\n", BLINK_PIN);
 }
 
 /***********************************************
@@ -70,4 +69,5 @@ static esp_err_t configure_led(void)
 
    // Print success message.
    ESP_LOGI(TAG, "Example configured to blink GPIO %d!", BLINK_PIN);
+   return s_esp_err;
 }
