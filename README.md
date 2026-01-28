@@ -1,12 +1,10 @@
 # Blinky Thing 🚀
 
-![Screenshot of hand drawn schematic showing two LEDs connected to a transistor and toggled by a GPIO](.assets/blinky-thing-breadboard.jpg)
+![The project hardware and environment, including schematic showing two LEDs connected to transistor and GPIO](.assets/blinky-full-project.jpg)
 
 ## Summary:
 
 This is a project about getting a pro-level embedded dev environment running, and getting back into C/C++ programming. The main goal was to skip all the Docker noise, and hand-roll the ESP-IDF toolchain directly on **Debian 13 (Trixie)** 🐧. By running everything natively, I get a much more customizable workflow and a better understanding of how the tooling for embedded systems development actually works.
-
-![Screenshot of hand drawn schematic showing two LEDs connected to a transistor and toggled by a GPIO](.assets/blinky-thing-schematic.jpg)
 
 The circuit uses an **ESP32** to toggle an **NPN transistor**(type PN2222), which handles the heavy lifting of powering a series of LEDs from a 5V rail. This keeps the load off the MCU pins and makes the project a bit more interesting to build and document.
 
@@ -36,6 +34,8 @@ It serves as a foundational "refresh" for:
 * **Editor:** VS Code + C/C++ Extension Pack + ESP-IDF + Tabout 💻
 
 ## Logic & Circuit:
+
+![Screenshot of some beautiful, well-formatted C code.](.assets/blinky-sofresh-soclean.jpg)
 
 * **Code:** Written in C using the ESP GPIO driver and FreeRTOS task scheduler.
 * **Error Handling:**  Uses `esp_err.h` - to catch errors and throw helpful messages, i.e. `ESP_LOGE(TAG, "Failed to blink good.\n");`
