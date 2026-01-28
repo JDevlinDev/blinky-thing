@@ -37,8 +37,8 @@ It serves as a foundational "refresh" for:
 
 ## Logic & Circuit:
 
-* **Code:** Written in C using the GPIO driver and FreeRTOS task scheduler.
-* **Error Handling:**  Uses `esp_err.h` - to catch errors and throw helpful messages like `ESP_LOGE(TAG, "Failed to blink good.\n");`
+* **Code:** Written in C using the ESP GPIO driver and FreeRTOS task scheduler.
+* **Error Handling:**  Uses `esp_err.h` - to catch errors and throw helpful messages, i.e. `ESP_LOGE(TAG, "Failed to blink good.\n");`
 * **Documentation:** Banner-style comments because we do some things the graybeard way
 * **Diagnostics:** `esp_log.h` - used for serial state monitoring and error reporting.
 * **Control:** `driver/gpio.h` - GPIO 23 toggles the base of the PN2222 every 800ms.
