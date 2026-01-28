@@ -38,7 +38,8 @@ It serves as a foundational "refresh" for:
 ## Logic & Circuit:
 
 * **Code:** Written in C using the GPIO driver and FreeRTOS task scheduler.
-* **Error Handling:**  Uses `esp_err.h` to properly check for errors during configuration
-* **Diagnostics:** `ESP_LOGI` and `ESP_LOGE` used for serial state monitoring and error reporting.
-* **Control:** GPIO 23 toggles the base of the PN2222 every 800ms.
-* **Switching:** The transistor handles the 5V rail to drive the LEDs in series, keeping the load off the MCU.
+* **Error Handling:**  Uses `esp_err.h` - to catch errors and throw helpful messages like `ESP_LOGE(TAG, "Failed to blink good.\n");`
+* **Documentation:** Banner-style comments because we do some things the graybeard way
+* **Diagnostics:** `esp_log.h` - used for serial state monitoring and error reporting.
+* **Control:** `driver/gpio.h` - GPIO 23 toggles the base of the PN2222 every 800ms.
+* **Switching:** `PN2222` transistor handles the 5V rail to drive the LEDs in series, keeping the load off the MCU.
