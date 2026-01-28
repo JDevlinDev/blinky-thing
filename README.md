@@ -1,10 +1,10 @@
 # Blinky Thing 🚀
 
-![The project hardware and environment, including schematic showing two LEDs connected to transistor and GPIO](.assets/blinky-full-project.jpg)
+![The project hardware and environment, including schematic showing two LEDs connected to transistor and GPIO](.assets/blinky-thing-schematic.jpg)
 
 ## Summary:
 
-This is a project about getting a pro-level embedded dev environment running, and getting back into C/C++ programming. The main goal was to skip all the Docker noise, and hand-roll the ESP-IDF toolchain directly on **Debian 13 (Trixie)** 🐧. By running everything natively, I get a much more customizable workflow and a better understanding of how the tooling for embedded systems development actually works.
+This is a project about getting a low-level embedded dev environment running, and getting back into the hang of C/C++ programming. The main goal was to skip all the Docker noise, and hand-roll the ESP-IDF toolchain directly on **Debian 13 (Trixie)** 🐧. By running everything natively, I get a much more customizable workflow and a better understanding of how the tooling for embedded systems development actually works.
 
 The circuit uses an **ESP32** to toggle an **NPN transistor**(type PN2222), which handles the heavy lifting of powering a series of LEDs from a 5V rail. This keeps the load off the MCU pins and makes the project a bit more interesting to build and document.
 
@@ -42,4 +42,4 @@ It serves as a foundational "refresh" for:
 * **Documentation:** Banner-style comments because we do some things the graybeard way
 * **Diagnostics:** `esp_log.h` - used for serial state monitoring and error reporting.
 * **Control:** `driver/gpio.h` - GPIO 23 toggles the base of the PN2222 every 800ms.
-* **Switching:** `PN2222` transistor handles the 5V rail to drive the LEDs in series, keeping the load off the MCU.
+* **Switching:** `PN2222` transistor handles the 5V rail to drive the LEDs in series, keeping the load off the MCU.toggled by Add
