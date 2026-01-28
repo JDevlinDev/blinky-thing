@@ -2,6 +2,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/gpio.h"
+#include "esp_err.h"
 #include "esp_log.h"
 
 /***********************************************
@@ -20,7 +21,7 @@ static esp_err_t s_esp_err;
 /***********************************************
 * Function Declarations
 *************************************************/
-static void blink_led(void);  // toggles the led on or off
+static esp_err_t blink_led(void);  // toggles the led on or off
 static esp_err_t configure_led(void); // initial config
 
 /***********************************************
@@ -31,12 +32,14 @@ void app_main(void)
    // Configure the GPIO and exit the program if there are errors
    s_esp_err = configure_led();
    if (s_esp_err == ESP_OK) {
-      while (1) {
+      while (s_esp_err == ESP_OK) {
          ESP_LOGI(TAG, "Turning the LED %s!", s_led_state == true ? "ON" : "OFF");
-         blink_led();
-           s_led_state = !s_led_state;
-           vTaskDelay(BLINK_PERIOD / portTICK_PERIOD_MS);
+         if (blink_led() == ESP_OK) {
+            s_led_state = !s_led_state;
+            vTaskDelay(BLINK_PERIOD / portTICK_PERIOD_MS);
+         }
        }
+       ESP_LOGE(TAG, "Failed to blink good.\n");
    }
    
    ESP_LOGE(TAG, "Failed to configure GPIO %d. Exiting...\n", BLINK_PIN);
@@ -45,10 +48,10 @@ void app_main(void)
 /***********************************************
 * Function Definitions
 *************************************************/
-static void blink_led(void)
+esp_err_t blink_led(void)
 {
-   // sets the GPIO level to s_led_state%!"
-   gpio_set_level(BLINK_PIN, s_led_state);
+   // sets GPIO level and returns the ESP_OK if it had success
+   return gpio_set_level(BLINK_PIN, s_led_state);
 }
 
 static esp_err_t configure_led(void)
