@@ -35,7 +35,7 @@ It serves as a foundational "refresh" for:
 
 ## Logic & Circuit:
 
-![Screenshot of some beautiful, well-formatted C code.](.assets/blinky-sofresh-soclean.jpg)
+![Screenshot of some beautiful, well-formatted C code.](.assets/blinky-thing-sofresh-soclean.jpg)
 
 * **Code:** Written in C using the ESP GPIO driver and FreeRTOS task scheduler.
 * **Error Handling:**  Uses `esp_err.h` - to catch errors and throw helpful messages, i.e. `ESP_LOGE(TAG, "Failed to blink good.\n");`
